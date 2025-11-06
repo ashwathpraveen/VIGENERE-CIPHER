@@ -1,10 +1,11 @@
 # VIGENERE-CIPHER
 ## EX. NO: 4
- 
-
+```
+REG N0: 212224220012
+NAME: ASHWATH P
+```
 ## IMPLEMETATION OF VIGENERE CIPHER
  
-
 ## AIM:
 
 To implement the Vigenere Cipher substitution technique using C program.
@@ -30,7 +31,65 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+void vigenereEncrypt(char plaintext[], char key[], char ciphertext[]) {
+ int i, j;
+ int pLen = strlen(plaintext);
+ int kLen = strlen(key);
+
+ for (i = 0, j = 0; i < pLen; i++) {
+ char p = toupper(plaintext[i]);
+ char k = toupper(key[j % kLen]);
+
+ if (p >= 'A' && p <= 'Z') {
+ ciphertext[i] = ((p - 'A') + (k - 'A')) % 26 + 'A';
+ j++;
+ } else {
+ ciphertext[i] = plaintext[i];
+ }
+ }
+ ciphertext[pLen] = '\0';
+}
+void vigenereDecrypt(char ciphertext[], char key[], char plaintext[]) {
+ int i, j;
+ int cLen = strlen(ciphertext);
+ int kLen = strlen(key);
+
+ for (i = 0, j = 0; i < cLen; i++) {
+ char c = toupper(ciphertext[i]);
+ char k = toupper(key[j % kLen]);
+
+ if (c >= 'A' && c <= 'Z') {
+ plaintext[i] = ((c - 'A') - (k - 'A') + 26) % 26 + 'A';
+ j++;
+ } else {
+ plaintext[i] = ciphertext[i];
+ }
+ }
+ plaintext[cLen] = '\0';
+}
+
+int main() {
+ char plaintext[100], key[100], ciphertext[100], decrypted[100];
+
+ printf("Enter plaintext: ");
+ scanf("%s", plaintext);
+
+ printf("Enter key: ");
+ scanf("%s", key);
+
+vigenereEncrypt(plaintext, key, ciphertext);
+printf("Encrypted text: %s\n", ciphertext);
+vigenereDecrypt(ciphertext, key, decrypted);
+printf("Decrypted text: %s\n", decrypted);
+return 0;
+}
+```
 
 ## OUTPUT
+<img width="804" height="351" alt="image" src="https://github.com/user-attachments/assets/d974d403-7829-4352-8103-94faddf31eda" />
 
 ## RESULT
